@@ -1,0 +1,95 @@
+{% extends 'HomePage/body.html' %}
+{% load static %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<!-- evento boton eliminar -->
+<script type="text/javascript">
+    function eliminar() {
+        var x = confirm("Eliminar Producto ?");
+        if (x)
+            return true;
+        else
+            return false;
+    }
+</script>
+<!-- fin evento boton eliminar -->
+
+<!-- evento mensaje confirmacion -->
+{% if messages %}
+<ul class="messages list-group mb-3">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary" {% endif %}>{{ message }}
+        </li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+
+<!-- inicio tabla productos -->
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h2>Listado de Productos</h2>
+            <a href="{% url 'crear' %}" class="btn btn-info">Nuevo Producto</a>
+        </div>
+        <div class="card-body">
+            <table id="example" class="display table table-striped table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col col-md-3">Codigo</th>
+                        <th scope="col col-md-3">Descripcion</th>
+                        <th scope="col col-md-3">P. Unitario</th>
+                        <th scope="col col-md-3">P. Venta</th>
+                        <th scope="col col-md-3">Categoria</th>
+                        <th scope="col col-md-3">Descuento</th>
+                        <th scope="col col-md-3">I.V.A</th>
+                        <th scope="col col-md-3">Stock</th>
+                        <th scope="col col-md-3">Proveedor</th>
+                        <th scope="col col-md-3">Marca</th>
+                        <th colspan="" scope="col col-md-6">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Productos in object_list %}
+                    <tr>
+
+                        <th>{{ Productos.codigo }}</th>
+                        <td>{{ Productos.descripcion }}</td>
+                        <td>{{ Productos.costo_unitario }}</td>
+                        <th>{{ Productos.precioventa }}</th>
+                        <td>{{ Productos.idcategoria }}</td>
+                        <td>{{ Productos.descuento }}</td>
+                        <th>{{ Productos.importeiva }}</th>
+                        <td>{{ Productos.stock }}</td>
+                        <td>{{ Productos.idproveedor }}</td>
+                        <td>{{ Productos.idmarca }}</td>
+                        <td>
+                            <form method="POST" action="eliminar/{{ Productos.codigo }}">
+                                {% csrf_token %}
+                                <div class="btn-group">
+                                    <a href="editar/{{ Productos.codigo }}" class="btn btn-info">Editar</a>
+                                    <button class="btn btn-danger" onclick="return eliminar();"
+                                        type="submit">Eliminar</button>
+                                    <a href="detalle/{{ Productos.codigo }}" class="btn btn-success">Ver</a>
+                                </div>
+
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                </tfoot>
+            </table>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+</div>
+<!-- tabla con lista de productos -->
+
+
+
+<!-- fin tabla productos -->
+{% endblock %}

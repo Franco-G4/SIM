@@ -1,0 +1,39 @@
+{% extends 'HomePage/body.html' %}
+
+{# Cargamos la librería bootstrap4 #}
+{% load bootstrap4 %}
+
+{# CSS Bootstrap #}
+{% bootstrap_css %}
+
+{# Widget Tweaks #}
+{% load widget_tweaks %}
+
+{# Archivos #}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h4>Detalles</h4>
+    <div class="row">
+        <div class="col">
+
+            <p><span class="txt_negrita">Producto:</span> <br> {{ object.descripcion }} </p>
+            <p><span class="txt_negrita">P. unitario:</span> <br> {{ object.costo_unitario }} </p>
+            <p><span class="txt_negrita">P. venta:</span> <br> {{ object.precioventa }} </p>
+            <p><span class="txt_negrita">Categoria:</span> <br> {{ object.idcategoria }} </p>
+            <p><span class="txt_negrita">descuento:</span> <br> {{ object.descuento }} </p>
+            <p><span class="txt_negrita">I.V.A:</span> <br> {{ object.importeiva }} </p>
+            <p><span class="txt_negrita">Stock:</span> <br> {{ object.stock }} </p>
+            <p><span class="txt_negrita">Proveedor:</span><br>{{object.idproveedor}}</p>
+            <p><span class="txt_negrita">Marca:</span><br>{{object.idmarca}}</p>
+            <!-- Botón para volver a la vista principal (Home) -->
+            <a href="{% url 'lista' %}" type="submit" class="btn btn-danger">Volver</a>
+
+        </div>
+    </div>
+</div>
+{# JS y jQuery Bootstrap #}
+{% bootstrap_javascript jquery='full' %}
+
+{% endblock %}
